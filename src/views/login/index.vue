@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">柚子帮 - 平台管理登录</h3>
       </div>
 
       <el-form-item prop="username">
@@ -13,11 +13,12 @@
         <el-input
           ref="username"
           v-model="loginForm.username"
-          placeholder="Username"
+          placeholder="请输入账号/手机号"
           name="username"
           type="text"
           tabindex="1"
           auto-complete="on"
+          clearable
         />
       </el-form-item>
 
@@ -30,10 +31,11 @@
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="请输入密码"
           name="password"
           tabindex="2"
           auto-complete="on"
+          clearable
           @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
@@ -41,11 +43,11 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
 
       <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
+        <span style="margin-right:20px;">测试账号: 201731061426</span>
+        <span> 测试密码: 201731061426</span>
       </div>
 
     </el-form>
@@ -54,6 +56,7 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Login',
@@ -74,8 +77,8 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        username: '201731061426',
+        password: '201731061426'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -95,6 +98,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('user',['setToken','setUserInfo']),
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -106,15 +110,17 @@ export default {
       })
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
+          const { code, data } = await this.$api.user.login(this.loginForm)
+          if (code === 0) {
+            console.log(data)
+            this.setUserInfo(data.userInfo)
+            this.setToken(data.token)
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
-          }).catch(() => {
-            this.loading = false
-          })
+          }
         } else {
           console.log('error submit!!')
           return false
@@ -186,7 +192,7 @@ $light_gray:#eee;
   .login-form {
     position: relative;
     width: 520px;
-    max-width: 100%;
+    max-width: 80%;
     padding: 160px 35px 0;
     margin: 0 auto;
     overflow: hidden;

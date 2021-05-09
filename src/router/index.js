@@ -56,23 +56,23 @@ export const constantRoutes = [
   },
 
   {
-    path: '/example',
+    path: '/user',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    redirect: '/user/wxUser',
+    name: 'User',
+    meta: { title: '用户管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: 'wxUser',
+        name: 'WxUser',
+        component: () => import('@/views/wxUser/index'),
+        meta: { title: '小程序用户', icon: 'table' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
+        path: 'admin',
+        name: 'Admin',
         component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        meta: { title: '后台管理员', icon: 'tree' }
       }
     ]
   },

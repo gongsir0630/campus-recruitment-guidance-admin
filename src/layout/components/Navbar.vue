@@ -1,5 +1,6 @@
 <template>
   <div class="navbar">
+    <!-- 收起菜单按钮 -->
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
     <breadcrumb class="breadcrumb-container" />
