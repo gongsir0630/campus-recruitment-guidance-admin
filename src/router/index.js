@@ -56,95 +56,53 @@ export const constantRoutes = [
   },
 
   {
+    // 用户管理
     path: '/user',
     component: Layout,
-    redirect: '/user/wxUser',
+    redirect: '/user/wx',
     name: 'User',
     meta: { title: '用户管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'wxUser',
-        name: 'WxUser',
-        component: () => import('@/views/wxUser/index'),
+        path: 'wx',
+        name: 'Wx',
+        component: () => import('@/views/user/wxUser'),
         meta: { title: '小程序用户', icon: 'table' }
       },
       {
         path: 'admin',
         name: 'Admin',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '后台管理员', icon: 'tree' }
+        component: () => import('@/views/user/adminUser'),
+        meta: { title: '后台管理员', icon: 'table' }
       }
     ]
   },
 
   {
-    path: '/form',
+    // 认证管理
+    path: '/auth',
     component: Layout,
+    redirect: '/auth/edu',
+    name: 'Auth',
+    meta: { title: '信息认证管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
+        path: 'edu',
+        name: 'Edu',
+        component: () => import('@/views/auth/edu/index'),
+        meta: { title: '教育信息认证', icon: 'el-icon-s-custom' }
       },
       {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' }
+        path: 'job',
+        name: 'Job',
+        component: () => import('@/views/auth/job/index'),
+        meta: { title: '工作信息认证', icon: 'el-icon-s-custom' }
+      },
+      {
+        path: 'member',
+        name: 'Member',
+        component: () => import('@/views/auth/yzb/index'),
+        meta: { title: '柚子帮成员审核', icon: 'el-icon-s-custom' }
       }
     ]
   },
@@ -152,10 +110,16 @@ export const constantRoutes = [
   {
     path: 'external-link',
     component: Layout,
+    name: 'Link',
+    meta: { title: 'External-Link', icon: 'el-icon-link' },
     children: [
       {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        path: 'https://github.com/gongsir0630/campus-recruitment-guidance-admin.git',
+        meta: { title: 'GitHub Repository', icon: 'link' }
+      },
+      {
+        path: 'https://github.com/gongsir0630/',
+        meta: { title: 'About Me', icon: 'link' }
       }
     ]
   },

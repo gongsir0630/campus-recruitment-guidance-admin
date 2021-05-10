@@ -20,9 +20,14 @@ function logout() {
   return null
 }
 
+function getList() {
+  return http.get(`/admin/user/list`)
+}
+
 export default {
   login,
   loginByTel,
   logout,
-  getInfo
+  getInfo,
+  getList
 }

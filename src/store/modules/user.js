@@ -11,10 +11,27 @@ const state = {
     avatar: '',
     phoneNumber: '',
     email: ''
+  },
+  adminUser: {
+    total: 0,
+    list: [{
+      userId: '',
+      password: '',
+      nickName: '',
+      avatar: '',
+      phoneNumber: '',
+      email: ''
+    }]
   }
 }
 
 const mutations = {
+  SET_ADMIN_USER(state, payload) {
+    if (payload) {
+      state.adminUser.list = payload
+      state.adminUser.total = payload.length
+    }
+  },
   SET_TOKEN(state, payload) {
     state.token = payload
     setToken(payload)
@@ -35,6 +52,12 @@ const mutations = {
 }
 
 const actions = {
+  getAdminUserList({ commit }, payload) {
+    return api.user.getList()
+      .then(res => {
+        commit('SET_ADMIN_USER', res.data)
+      })
+  },
   setUserInfo(context, payload) {
     context.commit('SET_USERINFO', payload)
   },
@@ -51,6 +74,9 @@ const actions = {
       })
   },
   resetToken(context, payload) {
+    context.commit('CLEAR_TOKEN', payload)
+  },
+  logout(context, payload) {
     context.commit('CLEAR_TOKEN', payload)
   }
 }

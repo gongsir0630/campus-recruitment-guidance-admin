@@ -54,8 +54,8 @@ const state = {
 const mutations = {
   SET_WX_USER(state, payload) {
     if (payload) {
-      state.wxUser.total = payload.total
       state.wxUser.list = payload.list
+      state.wxUser.total = payload.list.length === payload.total ? payload.total : payload.list.length
     }
   }
 }

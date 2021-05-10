@@ -16,7 +16,7 @@
           type="selection"
           width="55"
         />
-        <el-table-column align="center" label="ID" width="95">
+        <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index }}
           </template>
